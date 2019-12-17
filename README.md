@@ -44,6 +44,7 @@ Git learning experience.
 
 |  指令  |                   作用                   |      |
 | :----: | :--------------------------------------: | ---- |
+|  init  |              初始化本地仓库              |      |
 | clone  |       将远程服务器的仓库克隆到本地       |      |
 | config |               修改git配置                |      |
 |  add   |             添加修改到暂存区             |      |
@@ -52,7 +53,16 @@ Git learning experience.
 |  pull  | 从一个仓库或者本地的分支拉取并且整合代码 |      |
 | Status |           查看仓库中的数据状态           |      |
 
-##### 2.3.2 clone
+##### 2.3.2 init
+
+```shell
+# 将/var/git 初始化为一个空仓库
+$ git init --bare  /var/git
+```
+
+
+
+##### 2.3.3 clone
 
 -   本地访问
 
@@ -77,7 +87,7 @@ $ git clone http://服务器IP/git仓库
 $ git clone https://服务器IP/git仓库
 ```
 
-##### 2.3.3 config
+##### 2.3.4 config
 
 ```shell
 $ git config --global user.email "your_email@example.com"
@@ -85,42 +95,42 @@ $ git config --global user.name "your name"
 $ cat ~/.gitconfig
 ```
 
-##### 2.3.4 status
+##### 2.3.5 status
 
 ```shell
 # 查看状态
 $ git status
 ```
 
-##### 2.3.5 add
+##### 2.3.6 add
 
 ```shell
 # 提交到暂存区
 $ git add . # .代表所有修改
 ```
 
-##### 2.3.6 commit
+##### 2.3.7 commit
 
 ```shell
 # 提交到本地仓库
 $ git commit -m "comment" # option -m 可以在提交的时候添加注释
 ```
 
-##### 2.3.7 push
+##### 2.3.8 push
 
 ```shell
 # 推送到远程服务器仓库
 $ git push
 ```
 
-##### 2.3.8 pull
+##### 2.3.9 pull
 
 ```shell
 # 将服务器上的数据更新到本地
 $ git pull
 ```
 
-##### 2.3.9 log,reflog
+##### 2.3.10 log,reflog
 
 ```shell 
 # 查看版本日志 四种方式
@@ -216,4 +226,3 @@ $ git merge hotfix
     -   ![img](http://tts.tmooc.cn/ttsPage/VIP/NSDVN201904/OPERATION/DAY06/CASE/01/index.files/image009.png)
     -   在master分支中修改数据，更新版本
     -   ![img](http://tts.tmooc.cn/ttsPage/VIP/NSDVN201904/OPERATION/DAY06/CASE/01/index.files/image010.png)
-
