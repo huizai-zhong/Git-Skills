@@ -60,8 +60,6 @@ Git learning experience.
 $ git init --bare  /var/git
 ```
 
-
-
 ##### 2.3.3 clone
 
 -   本地访问
@@ -226,3 +224,45 @@ $ git merge hotfix
     -   ![img](http://tts.tmooc.cn/ttsPage/VIP/NSDVN201904/OPERATION/DAY06/CASE/01/index.files/image009.png)
     -   在master分支中修改数据，更新版本
     -   ![img](http://tts.tmooc.cn/ttsPage/VIP/NSDVN201904/OPERATION/DAY06/CASE/01/index.files/image010.png)
+
+#### 2.6 Git三种不同的服务形式（linux上的实现方式）
+
+-   **SSH协议服务器（支持读写操作）**
+
+```shell
+# 客户端生成SSH秘钥，将公钥拷贝至Git服务器即可
+[root@client]$ ssh-keygen -f /root/.ssh/id_rsa -N ''
+[root@client]$ ssh-copy-id 服务器IP #将公钥拷贝至Git服务器
+```
+
+-   **Git协议服务器（只读操作的服务器）**
+
+```shell
+# 安装软件包git-daemon
+$ yum -y install git-daemon
+# 修改配置
+$ vim /usr/lib/systemd/system/git@.service
+修改前内容如下：
+ExecStart=-/usr/libexec/git-core/git-daemon --base-path=/var/lib/git 
+--export-all --user-path=public_git --syslog --inetd –verbose
+修改后内容如下：
+ExecStart=-/usr/libexec/git-core/git-daemon --base-path=Git仓库目录 
+--export-all --user-path=public_git --syslog --inetd –verbose
+# 启动服务
+$ systemctl start git.socket
+```
+
+-   HTTP协议服务器
+
+```shell
+# 安装软件 gitweb httpd
+$ yum -y install gitweb httpd
+# 修改配置
+$ vim +11 /etc/gitweb.conf
+	$projectroot = "仓库目录" #添加一行
+# 启动服务
+$ systemctl start httpd
+# 客户端访问
+$ firefox http://服务器IP/git/
+```
+
